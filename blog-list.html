@@ -8,3 +8,186 @@
 </html>
 
 <!-- aan&b4gn)rf4jo+f!p-^!jj*xiviih9%1+9kzk12*j)dwai-ze -->
+
+<!-- 
+
+import ScrollMagic from 'scrollmagic';
+import _throttle from 'lodash.throttle';
+
+jQuery(($) => {
+    class ScrollImage {
+        constructor() {
+            this.scrollController = null; // the scrollmagic class controller
+            this.scene = null; // the scrollmagic scene
+            this.moduleInstance = null; // Specific module instance number
+            this.imageDuration = 500; // Length of each "slide" for scrolling
+            this.numSteps = 0; // The number of steps/images
+            this.nav = null; // The wrapper element containing the nav elements
+            this.images = null; // The wrapper element containing the images
+            this.currentImageNum = 1; // The current step/image number
+            this.triggerId = null; // ID of the element that triggers the scroll
+            this.breakpoint = 1049; // Responsive breakpoint
+        }
+
+        // Set the image element to be used
+        setImage(e) {
+            this.module = e;
+        }
+
+        // Grab & Set all needed variables
+        setVars() {
+            this.moduleInstance = $(this.module).data('instance');
+            this.numSteps = $(this.module).data('num-steps');
+            this.nav = $(this.module).find('.isf__section--titles');
+            this.images = $(this.module).find('.isf__section--images');
+            this.triggerId = `#isf-trigger-${this.moduleInstance}`;
+            this.pinId = `#isf-pin-${this.moduleInstance}`;
+        }
+
+        // Set click event & scroll triggers
+        setTriggers() {
+            // Trigger change when clicking on a nav item
+            this.nav.find('.isf__title-button').on('click', (e) => {
+                const imageNumber = $(e.target).data('instance');
+                this.changeProgressFromImageNumber(imageNumber);
+                this.setImageLevel(imageNumber);
+            });
+
+            // build or destroy scene based on responsive breakpoint
+            $(window).on(
+                'resize',
+                _throttle(() => {
+                    const windowWidth = $(window).width();
+
+                    if (windowWidth <= this.breakpoint) {
+                        this.destroyScene();
+                        this.destroyController();
+                    } else {
+                        this.buildControllerAndScene();
+                    }
+                }, 100),
+            );
+        }
+
+        // Set image level and trigger change
+        setImageLevel(level = 1) {
+            this.currentImageNum = level;
+            this.changeImage();
+        }
+
+        // Update css classes based on current image number
+        changeImage() {
+            this.nav.find('.isf__title-button').removeClass('-active');
+            this.images.find('.isf__image-wrap').removeClass('-active');
+            this.nav
+                .find(
+                    `.isf__title-button[data-instance="${this.currentImageNum}"]`,
+                )
+                .addClass('-active');
+
+            this.images
+                .find(
+                    `.isf__image-wrap[data-instance="${this.currentImageNum}"]`,
+                )
+                .addClass('-active');
+        }
+
+        // Create scene tied to this module
+        createScene() {
+            // Length of entire scene (number of images * duration per image)
+            let durationLength = this.imageDuration * this.numSteps;
+
+            this.scene = new ScrollMagic.Scene({
+                triggerElement: `${this.triggerId}`,
+                duration: durationLength,
+                triggerHook: 0.1,
+            })
+                .setPin(`${this.pinId}`)
+                .addTo(this.scrollController)
+                .on('progress', (e) => {
+                    // Progress percentage as number between 0 and 1
+                    const progress = e.progress.toFixed(2) * 100;
+
+                    // Calculate step based on progress
+                    const step = this.calculateStep(progress);
+
+                    // Set current image and trigger changes
+                    this.setImageLevel(step);
+                    this.changeImage();
+                });
+        }
+
+        // Destroy scene if defined and set to null for garbage collection
+        destroyScene() {
+            if (this.scene != null) {
+                this.scene.destroy(1);
+                this.scene = null;
+            }
+        }
+
+        // Create controller if controller is null/not already created
+        createController() {
+            if (this.scrollController == null) {
+                this.scrollController = new ScrollMagic.Controller();
+            }
+        }
+
+        // Destroy controller if defined and set to null for garbage collection
+        destroyController() {
+            if (this.scrollController != null) {
+                this.scrollController.destroy(1);
+                this.scrollController = null;
+            }
+        }
+
+        // Build controller & scene
+        buildControllerAndScene() {
+            this.createController();
+            this.createScene();
+        }
+
+        // Calculate the current step given a percentage value between 0 and 1
+        calculateStep(progress = 0) {
+            let step = Math.floor((progress * this.numSteps) / 100);
+            return step > this.numSteps - 1 ? this.numSteps - 1 : step;
+        }
+
+        // Get the progress based on an image number and move to % state
+        changeProgressFromImageNumber(image = 0) {
+            let progress = Math.round((100 / this.numSteps) * image) / 100;
+            if (this.scene != null) {
+                this.scrollFromProgress(progress);
+            }
+        }
+
+        // Scroll to location on page / in scene based on progress
+        scrollFromProgress(progress = 0) {
+            this.scene
+                .controller()
+                .scrollTo(
+                    this.scene.triggerPosition() +
+                        progress * this.scene.duration(),
+                );
+        }
+
+        // Set image, grab all needed information from DOM & build scene
+        start(e) {
+            this.setImage(e);
+            this.setVars();
+            this.setTriggers();
+
+            if ($(window).width() >= this.breakpoint) {
+                this.buildControllerAndScene();
+            }
+        }
+    }
+
+    const $SCROLL_ZOOM = $('.isf');
+
+    if ($SCROLL_ZOOM.length) {
+        $SCROLL_ZOOM.each((i, e) => {
+            const scrollZoom = new ScrollImage();
+            scrollZoom.start(e);
+        });
+    }
+}); -->
